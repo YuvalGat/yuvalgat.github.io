@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            text-align: right;
+            direction: rtl;
+        }
+    </style>
+</head>
+<body>
+<h1>בה״ד 1 - וידו״צ!</h1>
+<ul>
+    <h3>צוות 13</h3>
+    <div id="t13">
+    </div>
+    <h3>צוות 14</h3>
+    <div id="t14">
+    </div>
+    <h3>צוות 15</h3>
+    <div id="t15">
+    </div>
+    <h3>צוות 16</h3>
+    <div id="t16">
+    </div>
+</ul>
+</body>
+<script>
+    const team13 = ['שי ברדה', 'עמית כהן', 'עינב אלבין', 'ספיר כהן', 'ניצן נחמיה', 'נטע קסה', 'נטלי רובינוב ', 'נועה מאיר', 'ינאי אלטר', 'טל בייטר', 'חאלד מלחם', 'דניאל גלסברג', 'אנה זוברב', 'איילה לביא ', 'אור גלוון '];
+    const team14 = ['שחר אחרק', 'רותם יונג', 'עידן קליגר', 'עידו וינשטוק', 'סופיה כהן', 'נועה פוקס', 'מיקה יונסי', 'ליאור בן שבת', 'יובל גת', 'זיו יצחק', 'זיו חליוה', 'הילה ריבלוב', 'הדר קוטיק', 'אייל מלמוד'];
+    const team15 = ['שירה בנשלום', 'רזי קדור', 'רוני סבן', 'עמרי בר און', 'עמית מאיר', 'עמיר בדרייה', 'עופר חונן', 'ניר בוטבול', 'נטע פרקש', 'נועם לטינסקי', 'מור מצא', 'ליהי פסטרנק', 'יעד כהן', 'יובל סרברניק', 'הלל רוטנברג'];
+    const team16 = ['תהילה סרוסי', 'רועי כסלו', 'ענב עסור', 'נדב קורדובה', 'נגה דגן', 'מלי רטה', 'מאי פרום', 'כליל בנו', 'יונתן גרבר', 'יובל בן שלמה', 'ורד אדיס', 'הילה הקימיאן', 'גלי ים', 'אופיר ואקנין', 'אביב גואטה'];
+
+    for (const pair of [['t13', team13], ['t14', team14], ['t15', team15], ['t16', team16]]) {
+        const id = pair[0];
+        const arr = pair[1];
+        for (const [i, name] of arr.entries()) {
+            const d = document.createElement('div');
+            const checkbox = document.createElement('input');
+            const label = document.createElement('label');
+            const c = `checkbox_${id}_${i}`;
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.setAttribute('id', c);
+            label.setAttribute('for', c);
+            label.innerText = name;
+            d.appendChild(checkbox);
+            d.appendChild(label);
+            document.getElementById(id).appendChild(d);
+        }
+    }
+</script>
+</html>
