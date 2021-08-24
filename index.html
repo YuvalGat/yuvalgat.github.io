@@ -7,6 +7,8 @@
             direction: rtl;
         }
     </style>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="./html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <h1>בה״ד 1 - וידו״צ!</h1>
@@ -27,6 +29,7 @@
         <button onclick="createMatzal()">צור מצ״ל!</button>
     </div>
 </ul>
+<div id="matzal"></div>
 </body>
 <script>
     const team13 = ['שי ברדה', 'עמית כהן', 'עינב אלבין', 'ספיר כהן', 'ניצן נחמיה', 'נטע קסה', 'נטלי רובינוב ', 'נועה מאיר', 'ינאי אלטר', 'טל בייטר', 'חאלד מלחם', 'דניאל גלסברג', 'אנה זוברב', 'איילה לביא ', 'אור גלוון '];
@@ -118,7 +121,51 @@
     }
 
     function createMatzal() {
-        console.log(getStatus());
+        const m = document.createElement('div');
+        const title = document.createElement('h1');
+        const date = document.createElement('p');
+        const time = document.createElement('p');
+        const d = new Date();
+        const today = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+        const timeString = d.toLocaleTimeString();
+        const totalCount = team13.length + team14.length + team15.length + team16.length;
+        const mzl = document.createElement('p');
+        const mzn = document.createElement('p');
+        const namesAndReasons = getStatus();
+        const mznCount = totalCount - namesAndReasons.length;
+        const missing = document.createElement('p');
+        const missingList = document.createElement('ul');
+        title.innerText = 'מצבה פלוגתית';
+        date.innerText = `תאריך: ${today}`;
+        mzl.innerText = `מצ״ל: ${totalCount}/${totalCount}`;
+        mzn.innerText = `מצ״ן: ${mznCount}/${totalCount}`;
+        time.innerText = `שעה: ${timeString}`;
+        missing.innerText = ':חסרים';
+        m.appendChild(title);
+        m.appendChild(date);
+        m.appendChild(time);
+        m.appendChild(mzl);
+        m.appendChild(mzn);
+        m.appendChild(missing);
+        for (const ob of namesAndReasons) {
+            const p = document.createElement('li');
+            const name = ob['name'];
+            const reason = ob['reason'];
+            p.innerText = `${name}: ${reason}`;
+            console.log(p);
+            missingList.appendChild(p);
+        }
+        m.appendChild(missingList);
+        document.getElementById('matzal').appendChild(m);
+
+        Array.from(m.children).forEach(c => c.setAttribute('class', 'text'));
+        const texts = document.querySelectorAll('.text'); // Fixes Hebrew spacing!!
+        texts.forEach(text => {
+            text.innerHTML = text.innerText.replace(/\s/g, "\u00a0");
+        });
+
+        const w = html2pdf();
+        w.from(m).save();
     }
 </script>
 </html>
