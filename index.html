@@ -38,14 +38,45 @@
             const d = document.createElement('div');
             const checkbox = document.createElement('input');
             const label = document.createElement('label');
-            const c = `checkbox_${id}_${i}`;
+            const c_id = `checkbox_${id}_${i}`;
+            const d_id = `div_${id}_${i}`;
             checkbox.setAttribute('type', 'checkbox');
-            checkbox.setAttribute('id', c);
-            label.setAttribute('for', c);
+            checkbox.setAttribute('checked', '');
+            checkbox.setAttribute('onchange', 'toggleInputs(this)');
+            checkbox.setAttribute('id', c_id);
+            d.setAttribute('id', d_id);
+            label.setAttribute('for', c_id);
             label.innerText = name;
             d.appendChild(checkbox);
             d.appendChild(label);
             document.getElementById(id).appendChild(d);
+        }
+    }
+
+    function toggleInputs(checkboxEl) {
+        const parent = checkboxEl.parentElement;
+        if (checkboxEl.checked) {
+
+        } else {
+            const radioIsolated = document.createElement('input');
+            const radioOther = document.createElement('input');
+            const radioIsolatedLabel = document.createElement('label');
+            const radioOtherInput = document.createElement('input');
+            const r_id = `${parent.getAttribute('id')}_radioIsolated`;
+            radioIsolated.setAttribute('type', 'radio');
+            radioIsolated.setAttribute('id', r_id);
+            radioIsolated.setAttribute('name', 'absence');
+            radioOther.setAttribute('type', 'radio');
+            radioOther.setAttribute('name', 'absence');
+            radioIsolatedLabel.setAttribute('for', r_id)
+            radioIsolatedLabel.innerText = 'בידוד';
+            radioOtherInput.setAttribute('placeholder', 'מבריז כי...');
+            parent.appendChild(document.createElement('br'));
+            parent.appendChild(radioIsolated);
+            parent.appendChild(radioIsolatedLabel);
+            parent.appendChild(document.createElement('br'));
+            parent.appendChild(radioOther);
+            parent.appendChild(radioOtherInput);
         }
     }
 </script>
