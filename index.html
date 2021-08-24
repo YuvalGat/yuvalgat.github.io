@@ -29,7 +29,7 @@
         <button onclick="createMatzal()">צור מצ״ל!</button>
     </div>
 </ul>
-<div id="matzal"></div>
+<div id="matzal" hidden></div>
 </body>
 <script>
     const team13 = ['שי ברדה', 'עמית כהן', 'עינב אלבין', 'ספיר כהן', 'ניצן נחמיה', 'נטע קסה', 'נטלי רובינוב ', 'נועה מאיר', 'ינאי אלטר', 'טל בייטר', 'חאלד מלחם', 'דניאל גלסברג', 'אנה זוברב', 'איילה לביא ', 'אור גלוון '];
@@ -148,17 +148,25 @@
         m.appendChild(mzn);
         m.appendChild(missing);
         for (const ob of namesAndReasons) {
-            const p = document.createElement('li');
+            const li = document.createElement('li');
             const name = ob['name'];
             const reason = ob['reason'];
-            p.innerText = `${name}: ${reason}`;
-            console.log(p);
-            missingList.appendChild(p);
+            li.innerText = `${name}: ${reason}`;
+            console.log(li);
+            missingList.appendChild(li);
+            console.log(missingList);
         }
         m.appendChild(missingList);
         document.getElementById('matzal').appendChild(m);
 
-        Array.from(m.children).forEach(c => c.setAttribute('class', 'text'));
+        Array.from(m.children).forEach(c => {
+            if (c.childElementCount === 0) {
+                c.setAttribute('class', 'text')
+            } else {
+                Array.from(c.children).forEach(l => l.setAttribute('class', 'text'));
+            }
+        });
+
         const texts = document.querySelectorAll('.text'); // Fixes Hebrew spacing!!
         texts.forEach(text => {
             text.innerHTML = text.innerText.replace(/\s/g, "\u00a0");
