@@ -23,6 +23,10 @@
     <h3>צוות 16</h3>
     <div id="t16">
     </div>
+    <div>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+    </div>
 </ul>
 </body>
 <script>
@@ -78,6 +82,15 @@
             parent.appendChild(radioOther);
             parent.appendChild(radioOtherInput);
         }
+    }
+
+    function reset_checkbox(){
+         document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+    }
+    document.querySelector('button').addEventListener('click', reset_checkbox)
+
+    function submit_status(){
+        
     }
 </script>
 </html>
