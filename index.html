@@ -24,8 +24,7 @@
     <div id="t16">
     </div>
     <div>
-        <button type="reset">Reset</button>
-        <button type="submit">Submit</button>
+        <button onclick="createMatzal()">צור מצ״ל!</button>
     </div>
 </ul>
 </body>
@@ -53,44 +52,73 @@
             label.innerText = name;
             d.appendChild(checkbox);
             d.appendChild(label);
+            d.appendChild(generateReasoningDiv(`div_reasoning_${id}_${i}`));
             document.getElementById(id).appendChild(d);
         }
     }
 
+    function generateReasoningDiv(id) {
+        const d = document.createElement('div');
+        const radioIsolated = document.createElement('input');
+        const radioOther = document.createElement('input');
+        const radioIsolatedLabel = document.createElement('label');
+        const radioOtherInput = document.createElement('input');
+        const r_id = `${id}_radioIsolated`;
+        radioIsolated.setAttribute('type', 'radio');
+        radioIsolated.setAttribute('id', r_id);
+        radioIsolated.setAttribute('name', `${id}_absence`);
+        radioOther.setAttribute('type', 'radio');
+        radioOther.setAttribute('name', `${id}_absence`);
+        d.setAttribute('id', id);
+        radioIsolatedLabel.setAttribute('for', r_id);
+        radioIsolatedLabel.innerText = 'בידוד';
+        radioOtherInput.setAttribute('placeholder', 'מבריז כי...');
+        radioOtherInput.setAttribute('id', `${id}_input`)
+        d.appendChild(document.createElement('br'));
+        d.appendChild(radioIsolated);
+        d.appendChild(radioIsolatedLabel);
+        d.appendChild(document.createElement('br'));
+        d.appendChild(radioOther);
+        d.appendChild(radioOtherInput);
+        d.setAttribute('hidden', '');
+        d.setAttribute('style', 'margin-right: 20px; margin-top: -20px;')
+
+        return d;
+    }
+
     function toggleInputs(checkboxEl) {
         const parent = checkboxEl.parentElement;
+        const d = parent.children[2];
         if (checkboxEl.checked) {
-
+            d.setAttribute('hidden', '');
         } else {
-            const radioIsolated = document.createElement('input');
-            const radioOther = document.createElement('input');
-            const radioIsolatedLabel = document.createElement('label');
-            const radioOtherInput = document.createElement('input');
-            const r_id = `${parent.getAttribute('id')}_radioIsolated`;
-            radioIsolated.setAttribute('type', 'radio');
-            radioIsolated.setAttribute('id', r_id);
-            radioIsolated.setAttribute('name', 'absence');
-            radioOther.setAttribute('type', 'radio');
-            radioOther.setAttribute('name', 'absence');
-            radioIsolatedLabel.setAttribute('for', r_id)
-            radioIsolatedLabel.innerText = 'בידוד';
-            radioOtherInput.setAttribute('placeholder', 'מבריז כי...');
-            parent.appendChild(document.createElement('br'));
-            parent.appendChild(radioIsolated);
-            parent.appendChild(radioIsolatedLabel);
-            parent.appendChild(document.createElement('br'));
-            parent.appendChild(radioOther);
-            parent.appendChild(radioOtherInput);
+            d.removeAttribute('hidden');
         }
     }
 
-    function reset_checkbox(){
-         document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
-    }
-    document.querySelector('button').addEventListener('click', reset_checkbox)
+    function getStatus() {
+        const uncheckedDivs = Array.from(
+            document.querySelectorAll('input[type="checkbox"]')
+        ).filter(checkbox => !checkbox.checked).map(c => c.parentElement);
+        const namesAndReasons = uncheckedDivs.map(c => {
+            let r = '';
+            console.log(c);
+            if (c.children[2].children[1].checked) {
+                r = 'בידוד/הרחקה';
+            } else {
+                r = c.children[2].children[5].value;
+            }
+            return {
+                'name': c.children[1].innerText,
+                'reason': r
+            }
+        });
 
-    function submit_status(){
-        
+        return namesAndReasons;
+    }
+
+    function createMatzal() {
+        console.log(getStatus());
     }
 </script>
 </html>
