@@ -120,6 +120,11 @@
         return namesAndReasons;
     }
 
+    // For the time now
+    Date.prototype.timeNow = function () {
+        return `${this.getHours() < 10 ? "0" : ""}${this.getHours()}:${((this.getMinutes() < 10) ? "0" : "")}${this.getMinutes()}`;
+    }
+
     function createMatzal() {
         const m = document.createElement('div');
         const title = document.createElement('h1');
@@ -127,7 +132,7 @@
         const time = document.createElement('p');
         const d = new Date();
         const today = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
-        const timeString = d.toLocaleTimeString();
+        const timeString = d.timeNow();
         const totalCount = team13.length + team14.length + team15.length + team16.length;
         const mzl = document.createElement('p');
         const mzn = document.createElement('p');
@@ -152,9 +157,7 @@
             const name = ob['name'];
             const reason = ob['reason'];
             li.innerText = `${name}: ${reason}`;
-            console.log(li);
             missingList.appendChild(li);
-            console.log(missingList);
         }
         m.appendChild(missingList);
         document.getElementById('matzal').appendChild(m);
@@ -173,7 +176,7 @@
         });
 
         const w = html2pdf();
-        w.from(m).save();
+        w.from(m).set({margin: 10}).save();
     }
 </script>
 </html>
