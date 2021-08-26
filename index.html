@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>בה״ד 1 - וידו״צ!</h1>
-<ul>
+<div>
     <h3>צוות 13</h3>
     <div id="t13">
     </div>
@@ -25,10 +25,11 @@
     <h3>צוות 16</h3>
     <div id="t16">
     </div>
+    <input id="place" placeholder="מיקום..." />
     <div>
         <button onclick="createMatzal()">צור מצ״ל!</button>
     </div>
-</ul>
+</div>
 <div id="matzal" hidden></div>
 </body>
 <script>
@@ -150,6 +151,8 @@
         const today = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
         const timeString = d.timeNow();
         const totalCount = team13.length + team14.length + team15.length + team16.length;
+        const place = document.createElement('p');
+        let placeText = document.getElementById('place').value;
         const mzl = document.createElement('p');
         const mzn = document.createElement('p');
         const namesAndReasons = getStatus();
@@ -159,6 +162,7 @@
         const missing = document.createElement('p');
         title.innerText = 'מצבה פלוגתית';
         date.innerText = `תאריך: ${today}`;
+        place.innerText = `מקום: ${placeText}`;
         mzl.innerText = `מצ״ל: ${totalCount}/${totalCount}`;
         mzn.innerText = `מצ״ן: ${mznCount}/${totalCount}`;
         time.innerText = `שעה: ${timeString}`;
@@ -166,6 +170,7 @@
         m.appendChild(title);
         m.appendChild(date);
         m.appendChild(time);
+        if (placeText) m.appendChild(place);
         m.appendChild(mzl);
         m.appendChild(mzn);
         m.appendChild(missing);
