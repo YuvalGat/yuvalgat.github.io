@@ -99,6 +99,13 @@
         }
     }
 
+    function getTeam(name) {
+        if (team13.includes(name)) return '13';
+        if (team14.includes(name)) return '14';
+        if (team15.includes(name)) return '15';
+        if (team16.includes(name)) return '16';
+    }
+
     function getStatus() {
         const uncheckedDivs = Array.from(
             document.querySelectorAll('input[type="checkbox"]')
@@ -111,9 +118,11 @@
             } else {
                 r = c.children[2].children[5].value;
             }
+            const name = c.children[1].innerText;
             return {
-                'name': c.children[1].innerText,
-                'reason': r
+                'name': name,
+                'reason': r,
+                'team': getTeam(name)
             }
         });
 
@@ -123,6 +132,13 @@
     // For the time now
     Date.prototype.timeNow = function () {
         return `${this.getHours() < 10 ? "0" : ""}${this.getHours()}:${((this.getMinutes() < 10) ? "0" : "")}${this.getMinutes()}`;
+    }
+
+    function groupBy(xs, key) {
+        return xs.reduce(function (rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
     }
 
     function createMatzal() {
@@ -138,8 +154,9 @@
         const mzn = document.createElement('p');
         const namesAndReasons = getStatus();
         const mznCount = totalCount - namesAndReasons.length;
+        const narByTeam = groupBy(namesAndReasons, 'team');
+        console.log(narByTeam)
         const missing = document.createElement('p');
-        const missingList = document.createElement('ul');
         title.innerText = 'מצבה פלוגתית';
         date.innerText = `תאריך: ${today}`;
         mzl.innerText = `מצ״ל: ${totalCount}/${totalCount}`;
@@ -152,14 +169,18 @@
         m.appendChild(mzl);
         m.appendChild(mzn);
         m.appendChild(missing);
-        for (const ob of namesAndReasons) {
-            const li = document.createElement('li');
-            const name = ob['name'];
-            const reason = ob['reason'];
-            li.innerText = `${name}: ${reason}`;
-            missingList.appendChild(li);
+        for (const [team, members] of Object.entries(narByTeam)) {
+            const t = document.createElement('h3');
+            const ul = document.createElement('ul');
+            t.innerText = `צוות ${team}`;
+            for (const member of members) {
+                const li = document.createElement('li');
+                li.innerText = `${member['name']}: ${member['reason']}`;
+                ul.appendChild(li);
+            }
+            m.appendChild(t);
+            m.appendChild(ul);
         }
-        m.appendChild(missingList);
         document.getElementById('matzal').appendChild(m);
 
         Array.from(m.children).forEach(c => {
