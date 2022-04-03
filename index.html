@@ -11,34 +11,56 @@
     <script src="./html2pdf.bundle.min.js"></script>
 </head>
 <body>
-<h1>בה״ד 1 - וידו״צ!</h1>
+<h1>בה'ד 1 - וידו'צ!</h1>
 <div>
-    <h3>צוות 13</h3>
-    <div id="t13">
-    </div>
-    <h3>צוות 14</h3>
-    <div id="t14">
-    </div>
-    <h3>צוות 15</h3>
-    <div id="t15">
-    </div>
-    <h3>צוות 16</h3>
-    <div id="t16">
-    </div>
+    <!--    <h3>צוות 13</h3>-->
+    <!--    <div id="t13">-->
+    <!--    </div>-->
+    <!--    <h3>צוות 14</h3>-->
+    <!--    <div id="t14">-->
+    <!--    </div>-->
+    <!--    <h3>צוות 15</h3>-->
+    <!--    <div id="t15">-->
+    <!--    </div>-->
+    <!--    <h3>צוות 16</h3>-->
+    <!--    <div id="t16">-->
+    <!--    </div>-->
+    <h3>צוות גולד</h3>
+    <div id="tGold"></div>
+    <h3>צוות אשוול</h3>
+    <div id="tEshwel"></div>
+    <h3>צוות ברנש</h3>
+    <div id="tBarnash"></div>
+    <h3>צוות כהן</h3>
+    <div id="tCohen"></div>
+    <h3>צוות אראל</h3>
+    <div id="tErel"></div>
+    <h3>צוות ליגל</h3>
+    <div id="tLigel"></div>
+    <h3>צוות אלגריסי</h3>
+    <div id="tElgrisi"></div>
     <input id="place" placeholder="מיקום..."/>
     <div>
-        <button onclick="createMatzal()">צור מצ״ל!</button>
+        <button onclick="createMatzal()">צור מצ'ל!</button>
     </div>
 </div>
 <div id="matzal" hidden></div>
 </body>
 <script>
-    const team13 = ['שי ברדה', 'עמית כהן', 'עינב אלבין', 'ספיר כהן', 'ניצן נחמיה', 'נטע קסה', 'נטלי רובינוב', 'נועה מאיר', 'ינאי אלטר', 'טל בייטר', 'חאלד מלחם', 'דניאל גלסברג', 'אנה זוברב', 'איילה לביא', 'אור גלוון'];
-    const team14 = ['שחר אחרק', 'רותם יונג', 'עידן קליגר', 'עידו וינשטוק', 'סופיה כהן', 'נועה פוקס', 'מיקה יונסי', 'ליאור בן שבת', 'יובל גת', 'זיו יצחק', 'זיו חליוה', 'הילה ריבלוב', 'הדר קוטיק', 'אייל מלמוד'];
-    const team15 = ['שירה בנשלום', 'רזי קדור', 'רוני סבן', 'עמרי בר און', 'עמית מאיר', 'עמיר בדרייה', 'עופר חונן', 'ניר בוטבול', 'נטע פרקש', 'נועם לטינסקי', 'מור מצא', 'ליהי פסטרנק', 'יעד כהן', 'יובל סרברניק', 'הלל רוטנברג'];
-    const team16 = ['תהילה סרוסי', 'רועי כסלו', 'ענב עסור', 'נדב קורדובה', 'נגה דגן', 'מלי רטה', 'מאי פרום', 'יונתן גרבר', 'יובל בן שלמה', 'ורד אדיס', 'הילה הקימיאן', 'גלי ים', 'אופיר ואקנין', 'אביב גואטה'];
+    // const team13 = ['שי ברדה', 'עמית כהן', 'עינב אלבין', 'ספיר כהן', 'ניצן נחמיה', 'נטע קסה', 'נטלי רובינוב', 'נועה מאיר', 'ינאי אלטר', 'טל בייטר', 'חאלד מלחם', 'דניאל גלסברג', 'אנה זוברב', 'איילה לביא', 'אור גלוון'];
+    // const team14 = ['שחר אחרק', 'רותם יונג', 'עידן קליגר', 'עידו וינשטוק', 'סופיה כהן', 'נועה פוקס', 'מיקה יונסי', 'ליאור בן שבת', 'יובל גת', 'זיו יצחק', 'זיו חליוה', 'הילה ריבלוב', 'הדר קוטיק', 'אייל מלמוד'];
+    // const team15 = ['שירה בנשלום', 'רזי קדור', 'רוני סבן', 'עמרי בר און', 'עמית מאיר', 'עמיר בדרייה', 'עופר חונן', 'ניר בוטבול', 'נטע פרקש', 'נועם לטינסקי', 'מור מצא', 'ליהי פסטרנק', 'יעד כהן', 'יובל סרברניק', 'הלל רוטנברג'];
+    // const team16 = ['תהילה סרוסי', 'רועי כסלו', 'ענב עסור', 'נדב קורדובה', 'נגה דגן', 'מלי רטה', 'מאי פרום', 'יונתן גרבר', 'יובל בן שלמה', 'ורד אדיס', 'הילה הקימיאן', 'גלי ים', 'אופיר ואקנין', 'אביב גואטה'];
 
-    for (const pair of [['t13', team13], ['t14', team14], ['t15', team15], ['t16', team16]]) {
+    const teamGold = ['רומי פוליקר', 'שביט נווה', 'צליל לוי', 'יעל לבן', 'ליאל דותן', 'יונתן וובצ׳יק', 'בן ויקינסקי', 'דניאל פינדלינג', 'אביב זרו']
+    const teamErel = ['רז דורון', 'שני בש', 'נועם ויזל', 'נבו בן יעקב', 'נאו איל', 'הגר בר לבב', 'זהר פיינברג']
+    const teamBarnash = ['אליה בן שטרית', 'יובל בן חיים', 'שני וינשטוק', 'טופז אלמגור', 'טל נורמטוב', 'אביב אלקובי', 'רונה גרשקוביץ', 'אראל אלחרר', 'אבישי מקונן']
+    const teamElgrisi = ['ערן נוביץ׳', 'עידו טישלר', 'גילי נחום', 'לישי אבן צור', 'יובל חנונה', 'עדי דורשבילי', 'דני אייל', 'איתי דותן', 'ליאור רייכמן', 'עומר גוברין']
+    const teamLigel = ['עידו טל', 'טום בן שלוש', 'רועי סיטיון', 'רומי שביט', 'אופיר שמיר', 'דניאל חרמון', 'אמיתי ולק', 'נועה ירדני', 'יובל צמח', 'טל מזוז', 'בר שטיין']
+    const teamEshwel = ['עמיחי קנדל', 'יהל נחמד', 'נעם טוונה', 'נוי גשמא', 'אביה רוזנבלו', 'עמית קין', 'תומר אדר', 'אביגיל צדקה']
+    const teamCohen = ['נעם אבו', 'נגה שלזינגר', 'אור כהן', 'עידן שחם', 'תומר פייט', 'אופק יחיאל', 'רוני רובינשטיין']
+
+    for (const pair of [['tGold', teamGold], ['tEshwel', teamEshwel], ['tBarnash', teamBarnash], ['tCohen', teamCohen], ['tErel', teamErel], ['tLigel', teamLigel], ['tElgrisi', teamElgrisi]]) {
         const id = pair[0];
         const arr = pair[1];
         for (const [i, name] of arr.entries()) {
@@ -101,10 +123,17 @@
     }
 
     function getTeam(name) {
-        if (team13.includes(name)) return '13';
-        if (team14.includes(name)) return '14';
-        if (team15.includes(name)) return '15';
-        if (team16.includes(name)) return '16';
+        // if (team13.includes(name)) return '13';
+        // if (team14.includes(name)) return '14';
+        // if (team15.includes(name)) return '15';
+        // if (team16.includes(name)) return '16';
+        if (teamGold.includes(name)) return 'גולד';
+        if (teamBarnash.includes(name)) return 'ברנש';
+        if (teamCohen.includes(name)) return 'כהן';
+        if (teamErel.includes(name)) return 'אראל';
+        if (teamElgrisi.includes(name)) return 'אלגריסי';
+        if (teamEshwel.includes(name)) return 'אשוול';
+        if (teamLigel.includes(name)) return 'ליגל';
     }
 
     function getStatus() {
@@ -149,7 +178,8 @@
         const d = new Date();
         const today = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
         const timeString = d.timeNow();
-        const totalCount = team13.length + team14.length + team15.length + team16.length;
+        // const totalCount = team13.length + team14.length + team15.length + team16.length;
+        const totalCount = teamBarnash.length + teamLigel.length + teamGold.length + teamEshwel.length + teamElgrisi.length + teamErel.length + teamCohen.length;
         const place = document.createElement('p');
         let placeText = document.getElementById('place').value;
         const mzl = document.createElement('p');
@@ -161,8 +191,8 @@
         title.innerText = 'מצבה פלוגתית';
         date.innerText = `תאריך: ${today}`;
         place.innerText = `מקום: ${placeText}`;
-        mzl.innerText = `מצ״ל: ${totalCount}/${totalCount}`;
-        mzn.innerText = `מצ״ן: ${mznCount}/${totalCount}`;
+        mzl.innerText = `מצ'ל: ${totalCount}/${totalCount}`;
+        mzn.innerText = `מצ'ן: ${mznCount}/${totalCount}`;
         time.innerText = `שעה: ${timeString}`;
         missing.innerText = ':חסרים';
         m.appendChild(title);
